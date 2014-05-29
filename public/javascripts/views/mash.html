@@ -1,0 +1,38 @@
+<h3>{{title}}</h3>
+<div class="row">
+    <div class="col-xs-12 col-md-8" style="height: 400px;">
+        <div data-google-chart="LineChart" style="height: 100%;"></div>
+        <button class="btn btn-success" data-ng-click="startMash()">Start</button>
+    </div>
+    <div class="col-xs-12 col-md-4">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Step Time</th>
+                    <th>Step Temp.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="step in steps">
+                    <td>{{$index + 1}}</td>
+                    <td>{{step.time}}</td>
+                    <td>{{step.temp}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <form style="padding-top: 15px;">
+                <div class="col-xs-5">
+                    <input type="text" id="stepTime" class="form-control" placeholder="Minute" data-ng-model="stepTime" />
+                </div>
+                <div class="col-xs-5">
+                    <input type="text" id="stepTemp" class="form-control" placeholder="Temperature" data-ng-model="stepTemp" />
+                </div>
+                <div class="col-xs-2">
+                    <a id="addStep" class="btn btn-primary"><i class="fa fa-plus-square" data-ng-click="addStep()"></i></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

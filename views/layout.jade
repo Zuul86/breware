@@ -1,0 +1,19 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+		title= title
+		link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+		link(href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css", rel="stylesheet")
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='//google.com/jsapi')
+	body
+		block content
+		script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js')
+		script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.min.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='/javascripts/app.js')
+		script(src='/javascripts/services/socket.js')
+		script(src='/javascripts/controllers/mashCtrl.js')
+		script(src='/javascripts/directives/googleChart.js')
