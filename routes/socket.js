@@ -4,7 +4,15 @@ var mash = require('../modules/mash');
 
 module.exports = function (io) {
 
+    
+
     io.sockets.on('connection', function (socket) {
+
+        var changeFlameState = function (flameState) {
+            console.log('Flame ' + flameState);
+            socket.emit('flamestate', flameState);
+        };
+
         socket.on('message', function (msg) {
             var message = JSON.parse(msg);         
             if (message.command === 'startmash') {
@@ -18,19 +26,15 @@ module.exports = function (io) {
                     var interval = setInterval(function () {
 
                         if (mash.isMachComplete()) {
-                            console.log('Flame off');
+                            changeFlameState('off');
                             endInterval();
                             return;
                         }
                         var temperature = temperatureSensor.getTemperature();
 
-                        if (mash.aboveStepTemp(temperature)) {
-                            console.log('Flame off');
-                        } else {
-                            console.log('Flame on');
-                        }
+                        mash.aboveStepTemp(temperature) ? changeFlameState('off') : changeFlameState('on');
 
-                        socket.emit("temp", [mash.currentMashTime(), temperature]);
+                        socket.emit('temp', [mash.currentMashTime(), temperature]);
                     }, 5000);
                 }
             } else if (message.command === 'addstep') {

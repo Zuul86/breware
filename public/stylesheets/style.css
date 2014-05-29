@@ -1,8 +1,18 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Segoe UI", Helvetica, Arial, sans-serif;
 }
-
-a {
-  color: #00B7FF;
+#mashContainter {
+  height: 400px;
+}
+#mashContainter > div {
+  height: 100%;
+}
+#mashContainter i.fa-fire {
+  color: red;
+  text-shadow: 1px 1px 1px #ccc;
+}
+#mashContainter #mashControls {
+  position: absolute;
+  bottom: 24px;
 }

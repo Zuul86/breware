@@ -1,17 +1,17 @@
 'use strict';
 
 angular.module('breware')
-	.directive('googleChart', function () {
+	.directive('bwGoogleChart', function () {
 	    return {
-	        restrict: 'A',
+	        restrict: 'E',
 	        link: function (scope, elem, attr, ctrl) {
 	            
 	            var data = new google.visualization.DataTable();
                 //TODO: Move column defs out of directive
 	            data.addColumn('number', 'Minutes');
 	            data.addColumn('number', 'Temperature');
-
-	            var chart = new google.visualization[attr.googleChart](elem[0]);
+	            
+	            var chart = new google.visualization[attr.type](angular.element(elem[0]).parent()[0]);
                 //TODO: Move options out of directive
 	            var options = {
 	                hAxis: { ticks: [0, 5, 10, 15, 20] },
