@@ -1,7 +1,7 @@
 ﻿var x = 0;
 
 module.exports = {
-    getTemperature: function () {
+    getTemperature: function (callback, unit) {
         var temps = [
             51,
             51,
@@ -91,6 +91,6 @@ module.exports = {
         //return Math.floor(Math.random() * ((180 - 50) + 1) + 50)
         var rtnTemp = temps[x];
         x++;
-        return rtnTemp;
+        callback(rtnTemp);
     }
 };

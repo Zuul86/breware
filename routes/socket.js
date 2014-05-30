@@ -1,10 +1,9 @@
 ﻿var moment = require('moment');
 var temperatureSensor = require('../modules/TemperatureSensorMock');
+//var temperatureSensor = require('../modules/bw_ds18b20');
 var mash = require('../modules/mash');
 
 module.exports = function (io) {
-
-    
 
     io.sockets.on('connection', function (socket) {
 
@@ -19,6 +18,7 @@ module.exports = function (io) {
                 if (!mash.mashStarted && mash.hasSteps()) {
 
                     mash.startMash();
+
                     var endInterval = function() {
                         clearInterval(interval);
                     }
@@ -30,11 +30,12 @@ module.exports = function (io) {
                             endInterval();
                             return;
                         }
-                        var temperature = temperatureSensor.getTemperature();
 
-                        mash.aboveStepTemp(temperature) ? changeFlameState('off') : changeFlameState('on');
+                        temperatureSensor.getTemperature(function (temperature) {
+                            mash.aboveStepTemp(temperature) ? changeFlameState('off') : changeFlameState('on');
+                            socket.emit('temp', [mash.currentMashTime(), temperature]);
+                        }, 'f');
 
-                        socket.emit('temp', [mash.currentMashTime(), temperature]);
                     }, 5000);
                 }
             } else if (message.command === 'addstep') {
