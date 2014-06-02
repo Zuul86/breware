@@ -5,6 +5,11 @@ body {
 #mashContainter {
   height: 400px;
 }
+@media (max-width: 768px) {
+  #mashContainter .short-chart {
+    height: 200px;
+  }
+}
 #mashContainter > div {
   height: 100%;
 }

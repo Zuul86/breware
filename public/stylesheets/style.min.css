@@ -1,1 +1,1 @@
-body{padding:50px;font:14px "Segoe UI",Helvetica,Arial,sans-serif}#mashContainter{height:400px}#mashContainter>div{height:100%}#mashContainter i.fa-fire{color:red;text-shadow:1px 1px 1px #ccc}#mashContainter #mashControls{position:absolute;bottom:24px}
+body{padding:50px;font:14px "Segoe UI",Helvetica,Arial,sans-serif}#mashContainter{height:400px}@media(max-width:768px){#mashContainter .short-chart{height:200px}}#mashContainter>div{height:100%}#mashContainter i.fa-fire{color:red;text-shadow:1px 1px 1px #ccc}#mashContainter #mashControls{position:absolute;bottom:24px}

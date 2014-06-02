@@ -1,7 +1,7 @@
 angular.module('breware')
-	.controller('mashCtrl', ['$scope', 'socket', function($scope, socket){
+	.controller('mashCtrl', ['$scope', 'socket', 'stepService', function($scope, socket, stepService){
 	    $scope.title = 'Mash';
-	    $scope.steps = [];
+	    $scope.steps = stepService.steps;
 	    $scope.currentTemperature = '--';
 	    $scope.currentMashTime = '--:--';
 	    $scope.flamestate = false;
@@ -14,7 +14,7 @@ angular.module('breware')
 
 	    socket.on('temp', function (data) {
 	        $scope.temperatureData = data;
-	        $scope.currentTemperature = data[1];
+	        $scope.currentTemperature = data[1].toFixed(2);
 	        $scope.currentMashTime = formatCurrentMashTime(data[0]);
 	    });
 
@@ -28,6 +28,7 @@ angular.module('breware')
 
 	    $scope.addStep = function () {
 	        $scope.steps.push({ time: $scope.stepTime, temp: $scope.stepTemp });
+	        stepService.steps = $scope.steps;
 	        socket.send(JSON.stringify({
 	            'command': 'addstep',
 	            'payload': {

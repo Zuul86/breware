@@ -3,6 +3,12 @@ extends layout
 block content
 	nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
 		div.navbar-header
-			a.navbar-brand(href='#')= title
+			a.navbar-brand.dropdown-toggle(href='#' data-toggle='dropdown')= title
+				b.caret
+			ul.dropdown-menu
+				li
+					a(href='#')= 'Mash'
+				li
+					a(href='#/calculator')= 'Calculators'
 	div.container
 		div(data-ng-view='')

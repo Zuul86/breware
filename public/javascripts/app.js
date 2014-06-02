@@ -1,12 +1,14 @@
 angular.module('breware', [])
 	.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-	    $locationProvider.html5Mode(true);
 
 		$routeProvider
 			.when('/', {
-					templateUrl: 'javascripts/views/mash.html',
-					controller: 'mashCtrl'
+				templateUrl: 'javascripts/views/mash.html',
+				controller: 'mashCtrl'
 			})
+            .when('/calculator', {
+                templateUrl: 'javascripts/views/calculator.html',
+            })
 			.otherwise({
                 template : "<div>Not Found</div>"
             });

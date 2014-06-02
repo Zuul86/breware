@@ -1,16 +1,18 @@
 'use strict';
 
 angular.module('breware')
-	.directive('bwGoogleChart', function () {
+	.directive('bwGoogleChart', ['chartDataService', function (chartDataService) {
 	    return {
 	        restrict: 'E',
 	        link: function (scope, elem, attr, ctrl) {
-	            
-	            var data = new google.visualization.DataTable();
-                //TODO: Move column defs out of directive
-	            data.addColumn('number', 'Minutes');
-	            data.addColumn('number', 'Temperature');
-	            
+
+	            //TODO: Move column defs out of directive
+	            if (!chartDataService.data) {
+	                chartDataService.data = new google.visualization.DataTable();
+	                chartDataService.data.addColumn('number', 'Minutes');
+	                chartDataService.data.addColumn('number', 'Temperature');
+	            }
+                
 	            var chart = new google.visualization[attr.type](angular.element(elem[0]).parent()[0]);
                 //TODO: Move options out of directive
 	            var options = {
@@ -28,14 +30,14 @@ angular.module('breware')
                         height: '90%'
 	                },
 	            };
-	            chart.draw(data, options);
+	            chart.draw(chartDataService.data, options);
 
 	            scope.$watch('temperatureData', function (newValue, oldValue) {
 	                if (angular.isDefined(newValue)) {
-	                    data.addRow(newValue);
-	                    chart.draw(data, options);
+	                    chartDataService.data.addRow(newValue);
+	                    chart.draw(chartDataService.data, options);
 	                }
 	            });
 	        }
 	    };
-	});
+	}]);
