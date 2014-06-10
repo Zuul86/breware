@@ -1,32 +1,54 @@
 ﻿var moment = require('moment');
 
-module.exports = (function () {
-    var steps = [];
-    var currentStep = 0;
-    var mashStartTime = null;
-    var mashComplete = false;
-    var mashStarted = false;
+module.exports = function () {
+    var steps,
+        currentStep,
+        mashStartTime,
+        mashStarted;
+
+    var initializeMash = function () {
+        steps = [];
+        currentStep = 0;
+        mashStartTime = null;
+        mashStarted = false;
+    };
+
+    var setMashStartTime = function () {
+        if (steps[currentStep].mashStepStartTime === undefined) {
+            steps[currentStep].mashStepStartTime = moment();
+        }
+    };   
+
+    var currentStepTime = function () {
+        return moment().diff(steps[currentStep].mashStepStartTime, 'seconds') / 60;
+    };   
 
     var hasSteps = function () {
         return steps.length === 0 ? false : true;
     };
 
-    var startMashTimer = function () {
-        if (steps[currentStep].mashStepStartTime === undefined) {
-            steps[currentStep].mashStepStartTime = moment();
-        }
+    var canStartMash = function () {
+        return !mashStarted && hasSteps();
+    };
+
+    var isExpired = function () {
+        return currentStepTime() > steps[currentStep].steptime;
+    };
+
+    var isLastStep = function () {
+        return currentStep + 1 === steps.length;
+    };
+
+    var addStep = function (step) {
+        steps.push(step);
     };
 
     var aboveStepTemp = function (currentTemperature) {
         var rtnVal = currentTemperature > steps[currentStep].steptemp;
         if (rtnVal) {
-            startMashTimer(steps[currentStep]);
+            setMashStartTime(steps[currentStep]);
         }
         return rtnVal;
-    };
-
-    var currentStepTime = function () {
-        return moment().diff(steps[currentStep].mashStepStartTime, 'seconds') / 60;
     };
 
     var currentMashTime = function () {
@@ -34,9 +56,9 @@ module.exports = (function () {
     };
 
     var isMachComplete = function () {
-        var expired = currentStepTime() > steps[currentStep].steptime;
-        if (expired) {
-            if (currentStep + 1 === steps.length) {
+        mashComplete = false;
+        if (isExpired()) {
+            if (isLastStep()) {
                 mashComplete = true;
                 mashStarted = false;
                 steps = [];
@@ -50,17 +72,21 @@ module.exports = (function () {
     };
 
     var startMash = function () {
-        mashStarted = true;
-        mashStartTime = moment();
+        if (canStartMash()) {
+            mashStarted = true;
+            mashStartTime = moment();
+            return true;
+        }
+        return false;
     };
 
+    initializeMash();
+
     return {
-        steps: steps,
-        hasSteps: hasSteps,
+        addStep: addStep,
         aboveStepTemp: aboveStepTemp,
         currentMashTime: currentMashTime,
-        mashStarted: mashStarted,
         isMachComplete: isMachComplete,
         startMash: startMash
     };
-})()
+};

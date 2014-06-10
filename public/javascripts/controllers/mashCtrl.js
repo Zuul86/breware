@@ -23,8 +23,14 @@ angular.module('breware')
 	    });
 
 	    $scope.startMash = function () {
-	        socket.send(JSON.stringify({'command': 'startmash'}));
-	    }
+	        socket.send(JSON.stringify({ 'command': 'startmash' }));
+	    };
+
+	    $scope.stopMash = function () {
+	        socket.send(JSON.stringify({ 'command': 'stopmash' }));
+	        $scope.steps = [];
+	        stepService.steps = $scope.steps;
+	    };
 
 	    $scope.addStep = function () {
 	        $scope.steps.push({ time: $scope.stepTime, temp: $scope.stepTemp });
