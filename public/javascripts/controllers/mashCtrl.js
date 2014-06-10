@@ -33,14 +33,16 @@ angular.module('breware')
 	    };
 
 	    $scope.addStep = function () {
-	        $scope.steps.push({ time: $scope.stepTime, temp: $scope.stepTemp });
-	        stepService.steps = $scope.steps;
-	        socket.send(JSON.stringify({
-	            'command': 'addstep',
-	            'payload': {
-	                'steptime': $scope.stepTime,
-	                'steptemp': $scope.stepTemp
-	            }
-	        }));
+	        if ($scope.steps.length < 5) {
+	            $scope.steps.push({ time: $scope.stepTime, temp: $scope.stepTemp });
+	            stepService.steps = $scope.steps;
+	            socket.send(JSON.stringify({
+	                'command': 'addstep',
+	                'payload': {
+	                    'steptime': $scope.stepTime,
+	                    'steptemp': $scope.stepTemp
+	                }
+	            }));
+	        }
 	    }
 	}]);

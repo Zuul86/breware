@@ -53,7 +53,5 @@ var getTemperature = function (callback, unit) {
 };
 
 module.exports = {
-    getTemperature: function (callback, unit) {
-        getTemperature(callback, unit);
-    }
+    getTemperature: getTemperature
 };

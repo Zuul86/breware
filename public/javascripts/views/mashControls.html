@@ -1,16 +1,23 @@
 ﻿<div id="mashControls">
     <div class="row">
-        <form>
+        <form name="stepControlForm" novalidate>
             <div class="col-xs-5">
-                <input type="text" id="stepTime" class="form-control" placeholder="Minute" data-ng-model="stepTime" />
+                <input type="number" id="stepTime" name="stepTime" class="form-control" placeholder="Minutes" data-ng-model="stepTime" required min="10" max="60" />
+                
             </div>
             <div class="col-xs-5">
-                <input type="text" id="stepTemp" class="form-control" placeholder="Temperature" data-ng-model="stepTemp" />
+                <input type="number" id="stepTemp" class="form-control" placeholder="Temperature" data-ng-model="stepTemp" min="104" max="170" />
             </div>
             <div class="col-xs-2">
                 <a id="addStep" class="btn btn-primary"><i class="fa fa-plus-square" data-ng-click="addStep()"></i></a>
             </div>
         </form>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <span data-ng-show="stepControlForm.$dirty && stepControlForm.stepTime.$error.required">Step duration is required.</span>
+            <span data-ng-show="stepControlForm.$dirty && stepControlForm.stepTime.$error.min">Step duration should be between 10 and 60 min.</span>&nbsp;
+        </div>
     </div>
     <br />
     <div class="row">
