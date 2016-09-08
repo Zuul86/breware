@@ -1,53 +1,55 @@
-﻿var moment = require('moment');
+﻿const moment = require('moment');
+const commandSwitch = require('commandSwitch')
 
-module.exports = function () {
-    var steps,
-        currentStep,
+module.exports = () => {  
+    const steps = [];
+    let currentStep,
         mashStartTime,
         mashStarted;
 
-    var initializeMash = function () {
-        steps = [];
+    var initializeMash = () => {
         currentStep = 0;
         mashStartTime = null;
         mashStarted = false;
     };
 
-    var setMashStartTime = function () {
+    var setMashStartTime = () => {
         if (steps[currentStep].mashStepStartTime === undefined) {
             steps[currentStep].mashStepStartTime = moment();
         }
     };   
 
-    var currentStepTime = function () {
+    var currentStepTime = () => {
         return moment().diff(steps[currentStep].mashStepStartTime, 'seconds') / 60;
     };   
 
-    var hasSteps = function () {
-        return steps.length === 0 ? false : true;
+    var hasSteps = () => {
+        return steps.length === 0;
     };
 
-    var canStartMash = function () {
+    var canStartMash = () => {
         return !mashStarted && hasSteps();
     };
 
-    var isExpired = function () {
+    var isExpired = () => {
         return currentStepTime() > steps[currentStep].steptime;
     };
 
-    var isLastStep = function () {
+    var isLastStep = () => {
         return currentStep + 1 === steps.length;
     };
 
-    var addStep = function (step) {
+    var addStep = (step) => {
         steps.push(step);
     };
 
-    var aboveStepTemp = function (currentTemperature) {
+    var aboveStepTemp = (currentTemperature) => {
         var rtnVal = currentTemperature > steps[currentStep].steptemp;
         if (rtnVal) {
             setMashStartTime(steps[currentStep]);
         }
+        rtnVal ? commandSwitch.turnOn() : commandSwitch.turnOff();
+        
         return rtnVal;
     };
 
@@ -61,7 +63,7 @@ module.exports = function () {
             if (isLastStep()) {
                 mashComplete = true;
                 mashStarted = false;
-                steps = [];
+                steps.length = 0;
             } else {
                 currentStep++;
                 console.log('Next Step')
