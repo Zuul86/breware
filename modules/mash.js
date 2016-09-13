@@ -1,5 +1,6 @@
-﻿const moment = require('moment');
-const commandSwitch = require('commandSwitch')
+﻿'use strict';
+const moment = require('moment');
+//const commandSwitch = require('./commandSwitch')
 
 module.exports = () => {  
     const steps = [];
@@ -48,7 +49,7 @@ module.exports = () => {
         if (rtnVal) {
             setMashStartTime(steps[currentStep]);
         }
-        rtnVal ? commandSwitch.turnOn() : commandSwitch.turnOff();
+        //rtnVal ? commandSwitch.turnOn() : commandSwitch.turnOff();
         
         return rtnVal;
     };
@@ -58,7 +59,7 @@ module.exports = () => {
     };
 
     var isMachComplete = function () {
-        mashComplete = false;
+        let mashComplete = false;
         if (isExpired()) {
             if (isLastStep()) {
                 mashComplete = true;

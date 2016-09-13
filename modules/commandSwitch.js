@@ -1,10 +1,11 @@
+'use strict';
 const piGpio = require('pi-gpio');
 
 module.exports = () => {
     let gpioInitialized = false;
 
     if(!gpioInitialized){
-        piGpio.open(18, "output", (err) => {
+        piGpio.open(18, 'output', (err) => {
             if(err){
                 console.log(`Error ${err}`);
             } else {

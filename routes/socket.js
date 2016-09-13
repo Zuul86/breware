@@ -1,35 +1,37 @@
-﻿var moment = require('moment');
-var temperatureSensor = require('../modules/TemperatureSensorMock');
+﻿'use strict';
+const temperatureSensor = require('../modules/TemperatureSensorMock');
 //var temperatureSensor = require('../modules/bw_ds18b20');
-var mashModule = require('../modules/mash');
+const mashModule = require('../modules/mash');
 
 module.exports = function (io) {
 
     io.sockets.on('connection', function (socket) {
 
-        var mash = mashModule();
-        var inteval = null;
+        const mash = mashModule();
+        let interval = null;
 
-        var currentFlameState = null
+        let currentFlameState = null
 
-        var changeFlameState = function (flameState) {
+        function changeFlameState(flameState) {
             if (flameState !== currentFlameState) {
                 currentFlameState = flameState;
                 console.log('Flame ' + flameState);
                 socket.emit('flamestate', flameState);
             }
-        };
+        }
         
-        var endInterval = function () {
+        function endInterval() {
             clearInterval(interval);
             changeFlameState('off');
         }
 
         socket.on('message', function (msg) {
-            var message = JSON.parse(msg);         
+            const message = JSON.parse(msg);         
             if (message.command === 'startmash') {
 
-                if (!mash.startMash()) { return };      
+                if (!mash.startMash()) { 
+                    return 
+                }   
 
                 interval = setInterval(function () {
 
