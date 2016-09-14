@@ -1,9 +1,8 @@
 'use strict';
 const express = require('express');
 const path = require('path');
-const favicon = require('static-favicon');
+const favicon = require('serve-favicon');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const http = require('http');
 
@@ -21,11 +20,10 @@ sockets(io);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(favicon());
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
