@@ -1,6 +1,5 @@
 ﻿'use strict';
-const temperatureSensor = require('../modules/TemperatureSensorMock');
-//var temperatureSensor = require('../modules/bw_ds18b20');
+const temperatureSensor = require('../modules/temperatureSensor')();
 const mashModule = require('../modules/mash');
 
 module.exports = function (io) {
