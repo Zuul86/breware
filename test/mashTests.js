@@ -5,18 +5,20 @@ var mash = require('../modules/mash');
 
 describe('mash', function () {
 
-    //describe('canStartMash', function () {
+    describe('startMash', function () {
 
-    //    it('should return false if no steps', function () {
-    //        var mashTest = mash();
-    //        mashTest.canStartMash().should.be.false;
-    //    });
+        it('should start mash when has steps', function () {
+            var mashTest = mash();
+            mashTest.addStep();
+            mashTest.startMash().should.be.true;
+        });
 
-    //    it('should return true if steps and mash not started', function () {
-    //        var mashTest = mash();
-    //        mashTest.addStep('TEST');
-    //        mashTest.canStartMash().should.be.true;
-    //    });
+        it('should not start mash if already started', function () {
+            var mashTest = mash();
+            mashTest.addStep('TEST');
+            mashTest.startMash();
+            mashTest.startMash().should.be.false;
+        });
 
     //    it('should return false if mash started', function () {
     //        var mashTest = mash();
@@ -30,7 +32,7 @@ describe('mash', function () {
     //        mashTest.startMash();
     //        mashTest.canStartMash().should.be.false;
     //    });
-    //});
+    });
 
     describe('aboveStepTemp', function () {
         it('should return true if current temperature is greater then current step temperature', function () {
