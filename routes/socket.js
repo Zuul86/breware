@@ -15,7 +15,6 @@ module.exports = function (io) {
         function changeFlameState(flameState) {
             if (flameState !== currentFlameState) {
                 currentFlameState = flameState;
-                console.log('Flame ' + flameState);
                 socket.emit('flamestate', flameState);
             }
         }
@@ -26,14 +25,14 @@ module.exports = function (io) {
         }
 
         socket.on('message', function (msg) {
-            const message = JSON.parse(msg);         
+            const message = JSON.parse(msg);        
             if (message.command === 'startmash') {
 
                 if (!mash.startMash()) { 
                     return 
                 }   
 
-                interval = setInterval(function () {
+                interval = setInterval(() => {
 
                     if (mash.isMachComplete()) {
                         endInterval();

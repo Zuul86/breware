@@ -10,33 +10,33 @@ angular.module('breware')
 			time: null
 		};
 		
-		var formatCurrentMashTime = function (mashTime) {
+		var formatCurrentMashTime = (mashTime) => {
 			var mintues = Math.round(mashTime % 1 * 60);
 			var formatMinutes = (mintues < 10) ? ('0' + mintues) : mintues;
 			return Math.floor(mashTime) + ':' + formatMinutes;
 		};
 
-		socket.on('temp', function (data) {
+		socket.on('temp', (data) => {
 			$scope.temperatureData = data;
 			$scope.currentTemperature = data[1].toFixed(2);
 			$scope.currentMashTime = formatCurrentMashTime(data[0]);
 		});
 
-		socket.on('flamestate', function (data) {
+		socket.on('flamestate', (data) => {
 			$scope.flamestate = data === 'on' ? true : false;
 		});
 
-		$scope.startMash = function () {
+		$scope.startMash = () => {
 			socket.send(JSON.stringify({ 'command': 'startmash' }));
 		};
 
-		$scope.stopMash = function () {
+		$scope.stopMash = () => {
 			socket.send(JSON.stringify({ 'command': 'stopmash' }));
 			$scope.steps = [];
 			stepService.steps = $scope.steps;
 		};
 
-		$scope.addStep = function () {
+		$scope.addStep = () => {
 			if ($scope.steps.length < 5) {
 				$scope.steps.push({ time: $scope.step.time, temp: $scope.step.temp });
 				stepService.steps = $scope.steps;

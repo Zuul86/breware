@@ -4,41 +4,41 @@ const moment = require('moment');
 
 module.exports = () => {  
     const steps = [];
-    let currentStep,
+    var currentStep,
         mashStartTime,
         mashStarted;
 
-    var initializeMash = () => {
+    function initializeMash() {
         currentStep = 0;
         mashStartTime = null;
         mashStarted = false;
-    };
+    }
 
-    var setMashStartTime = () => {
+    function setMashStartTime () {
         if (steps[currentStep].mashStepStartTime === undefined) {
             steps[currentStep].mashStepStartTime = moment();
         }
-    };   
+    } 
 
-    var currentStepTime = () => {
+    function currentStepTime () {
         return moment().diff(steps[currentStep].mashStepStartTime, 'seconds') / 60;
-    };   
+    }
 
-    var hasSteps = () => {
-        return steps.length === 0;
-    };
+    function hasSteps () {
+        return steps.length > 0;
+    }
 
-    var canStartMash = () => {
+    function canStartMash() {
         return !mashStarted && hasSteps();
-    };
+    }
 
-    var isExpired = () => {
+    function isExpired() {
         return currentStepTime() > steps[currentStep].steptime;
-    };
+    }
 
-    var isLastStep = () => {
+    function isLastStep () {
         return currentStep + 1 === steps.length;
-    };
+    }
 
     var addStep = (step) => {
         steps.push(step);
@@ -67,7 +67,6 @@ module.exports = () => {
                 steps.length = 0;
             } else {
                 currentStep++;
-                console.log('Next Step')
             }
         }
 
@@ -77,7 +76,7 @@ module.exports = () => {
     var startMash = function () {
         if (canStartMash()) {
             mashStarted = true;
-            mashStartTime = moment();
+            mashStartTime = moment();        
             return true;
         }
         return false;

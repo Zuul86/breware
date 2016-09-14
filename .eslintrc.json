@@ -10,5 +10,10 @@
         "quotes": ["error", "single"],
         "linebreak-style": ["error", "windows"]
     },
-    "extends": "eslint:recommended"
+    "extends": "eslint:recommended",
+    "globals": {
+        "angular": false,
+        "io": false,
+        "google": false
+    }
 }
