@@ -1,7 +1,7 @@
 module.exports = function(){
     switch(process.env.NODE_ENV){
         case 'development':
-            return require('../modules/mockCommandSwitch');
+            return require('../modules/CommandSwitchMock');
 
         case 'production':
             return require('../modules/raspberryPiSwitch');
