@@ -43,7 +43,7 @@ module.exports = function (io) {
                         socket.emit('temp', [mash.currentMashTime(), temperature]);
                     }, 'f');
 
-                }, 5000);
+                }, 1000);
 
             } else if (message.command === 'stopmash') {
                 endInterval(interval);
