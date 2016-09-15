@@ -1,5 +1,5 @@
 angular.module('breware', [])
-	.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+	.config(['$routeProvider', function ($routeProvider) {
 
 		$routeProvider
 			.when('/', {
@@ -10,7 +10,7 @@ angular.module('breware', [])
                 templateUrl: 'javascripts/views/calculator.html',
             })
 			.otherwise({
-                template : "<div>Not Found</div>"
+                template : '<div>Not Found</div>'
             });
 	}]);
 
