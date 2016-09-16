@@ -1,6 +1,4 @@
-module.exports = () => { 
-    return {
-        turnOn: () => {}, 
-        turnOff: () => {}
-    } 
+module.exports =  {
+    turnOn: () => {}, 
+    turnOff: () => {}
 }

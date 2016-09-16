@@ -1,6 +1,6 @@
 ﻿'use strict';
 const moment = require('moment');
-//const commandSwitch = require('./commandSwitch')
+const commandSwitch = require('./commandSwitch')()
 
 module.exports = () => {  
     const steps = [];
@@ -49,7 +49,7 @@ module.exports = () => {
         if (rtnVal) {
             setMashStartTime(steps[currentStep]);
         }
-        //rtnVal ? commandSwitch.turnOn() : commandSwitch.turnOff();
+        rtnVal ? commandSwitch.turnOn() : commandSwitch.turnOff();
         
         return rtnVal;
     };
