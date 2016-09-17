@@ -30,7 +30,12 @@ var turnOff = () => {
     writeGpio(0);
 };
 
+var close = () => {
+    piGpio.close(18)
+};
+
 module.exports = {
     turnOn: turnOn,
-    turnOff: turnOff
+    turnOff: turnOff,
+    close: close
 };

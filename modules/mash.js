@@ -82,6 +82,10 @@ module.exports = () => {
         return false;
     };
 
+    var stopMash = function () {
+        commandSwitch.close();
+    };
+
     initializeMash();
 
     return {
@@ -89,6 +93,7 @@ module.exports = () => {
         aboveStepTemp: aboveStepTemp,
         currentMashTime: currentMashTime,
         isMachComplete: isMachComplete,
-        startMash: startMash
+        startMash: startMash,
+        stopMash: stopMash
     };
 };

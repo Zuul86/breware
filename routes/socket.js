@@ -47,6 +47,7 @@ module.exports = function (io) {
 
             } else if (message.command === 'stopmash') {
                 endInterval(interval);
+                mash.stopMash();
             } else if (message.command === 'addstep') {
                 mash.addStep(message.payload);
             }
