@@ -49,7 +49,7 @@ module.exports = () => {
         if (rtnVal) {
             setMashStartTime(steps[currentStep]);
         }
-        rtnVal ? commandSwitch.turnOn() : commandSwitch.turnOff();
+        rtnVal ? commandSwitch.turnOff() : commandSwitch.turnOn();
         
         return rtnVal;
     };
