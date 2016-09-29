@@ -1,12 +1,12 @@
 'use strict';
-const piGpio = require('pi-gpio');
+const gpio = require('rpi-gpio');
 
 let gpioInitialized = false;
 
 if (!gpioInitialized) {
-    piGpio.open(18, 'output', (err) => {
+    gpio.setup(18, gpio.DIR_OUT, (err) => {
         if (err) {
-            console.log(`Error ${err}`);
+            throw err;
         } else {
             gpioInitialized = true;
         }
@@ -15,23 +15,23 @@ if (!gpioInitialized) {
 }
 
 function writeGpio(value) {
-    piGpio.write(18, value, (err) => {
+    gpio.write(18, value, (err) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
     })
 }
 
 var turnOn = () => {
-    writeGpio(1);
+    writeGpio(true);
 };
 
 var turnOff = () => {
-    writeGpio(0);
+    writeGpio(false);
 };
 
 var close = () => {
-    piGpio.close(18)
+    gpio.destroy()
 };
 
 module.exports = {
