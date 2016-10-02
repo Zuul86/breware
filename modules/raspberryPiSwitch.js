@@ -3,6 +3,8 @@ const gpio = require('rpi-gpio');
 
 let gpioInitialized = false;
 
+gpio.setMode(gpio.MODE_BCM);
+
 if (!gpioInitialized) {
     gpio.setup(18, gpio.DIR_OUT, (err) => {
         if (err) {
